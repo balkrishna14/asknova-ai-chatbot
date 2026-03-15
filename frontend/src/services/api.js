@@ -1,15 +1,20 @@
 export const sendMessage = async (message) => {
 
-  const res = await fetch("http://localhost:3000/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: message
-    })
-  });
+  try {
 
-  return res.json();
+    const res = await fetch("https://asknova-ai-chatbot.onrender.com/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+    return data;
+
+  } catch (error) {
+    return { reply: "Server error. Please try again." };
+  }
 
 };
